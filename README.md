@@ -20,7 +20,7 @@ SELECT u.firstname , u.lastname , u.email , c.fullname as course_name,  ROUND(gg
 
   ![#](/reportgrade/docreport.png "doctype")
   
-  ![#](/reportgrade/fields.png "fields")
+  ![#](/reportgrade/reportfields.png "fields")
   
 . We can upload csv using front-end or back-end(In my case I Upload from backend)
    Command to upload csv file from back-end is:
