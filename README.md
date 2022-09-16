@@ -6,8 +6,7 @@
 
    ![#](/reportgrade/login.png "login")
 
-. To Fetch the Grades and Courses of Student we need to upload data of Students from moodle.
-  The Sql query which fetches the data from moodle is:
+. To Fetch the Grades and Courses of Student we need to upload data of Students from moodle.The Sql query which fetches the data from moodle is:
   
   ```
 SELECT u.firstname , u.lastname , u.email , c.fullname as course_name,  ROUND(gg.finalgrade,2) Grade, 
@@ -19,16 +18,16 @@ JOIN mdl_course_categories AS cc ON cc.id = c.category WHERE gi.courseid = c.id 
 
 ```
 
-.  Then Convert the table made by this query in csv to upload on erpnext.
+. Then Convert the table made by this query in csv to upload on erpnext.
  
-.  To upload Table we first need to create doctype for reportgrade which have the table headings as fields of the     table we want to upload.
+. To upload Table we first need to create doctype for reportgrade which have the table headings as fields of the     table we want to upload.
 
   ![#](/reportgrade/docreport.png "doctype")
   
   ![#](/reportgrade/reportfields.png "fields")
   
 . We can upload csv using front-end or back-end(In my case I Upload from backend)
-   Command to upload csv file from back-end is:
+  Command to upload csv file from back-end is:
    
 ```
 bench --site <SITE_NAME> data-import --file <PATH_TO_CSV> --doctype <DOCTYPE> --type <Insert|Update>
@@ -121,7 +120,7 @@ context.reportgrades = frappe.db.sql
 </html>
 ```
 
-Context script for MyCourses:
+4. Context script for MyCourses:
  
 ```
 user = frappe.session.user
