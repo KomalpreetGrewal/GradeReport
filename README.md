@@ -9,8 +9,13 @@
 . To Fetch the Grades and Courses of Student we need to upload data of Students from moodle.
   The Sql query which fetches the data from moodle is:
   
-```
-SELECT u.firstname , u.lastname , u.email , c.fullname as course_name,  ROUND(gg.finalgrade,2) Grade, concat(uo.url, c.id) as url FROM mdl_course AS c JOIN  url_of_course AS uo JOIN mdl_context AS ctx ON c.id = ctx.instanceid JOIN mdl_role_assignments AS ra ON ra.contextid = ctx.id JOIN mdl_user AS u ON u.id = ra.userid JOIN mdl_grade_grades AS gg ON gg.userid = u.id JOIN mdl_grade_items AS gi ON gi.id = gg.itemid JOIN mdl_course_categories AS cc ON cc.id = c.category WHERE gi.courseid = c.id AND gi.itemtype = 'course';
+  ```
+SELECT u.firstname , u.lastname , u.email , c.fullname as course_name,  ROUND(gg.finalgrade,2) Grade, 
+concat(uo.url, c.id) as url FROM mdl_course AS c JOIN  url_of_course AS uo JOIN mdl_context 
+AS ctx ON c.id = ctx.instanceid JOIN mdl_role_assignments AS ra ON ra.contextid = ctx.id 
+JOIN mdl_user AS u ON u.id = ra.userid JOIN mdl_grade_grades AS 
+gg ON gg.userid = u.id JOIN mdl_grade_items AS gi ON gi.id = gg.itemid 
+JOIN mdl_course_categories AS cc ON cc.id = c.category WHERE gi.courseid = c.id AND gi.itemtype = 'course';
 
 ```
 
@@ -74,9 +79,11 @@ bench --site <SITE_NAME> data-import --file <PATH_TO_CSV> --doctype <DOCTYPE> --
 
 ```
 user = frappe.session.user
-context.reportgrades = frappe.db.sql(f" select g.firstname, g.course_name, g.Grade from tabreportgrade as g join tabUser as u on g.firstname=u.first_name where u.name = %s", user);
+context.reportgrades = frappe.db.sql
+(f" select g.firstname, g.course_name, g.Grade from tabreportgrade as g join tabUser as u on g.firstname=u.first_name where u.name = %s", user);
+
 ```
-## Steps to Create MyCourses:
+ #### Steps to Create MyCourses:
 
 1. There is no need to create doctype for MyCourses because we get the data for courses from the reportgrade's        query.
 
@@ -118,7 +125,8 @@ Context script for MyCourses:
  
 ```
 user = frappe.session.user
-context.reportgrades = frappe.db.sql(f" select g.course_name, g.url from tabreportgrade as g join tabUser as u on g.firstname=u.first_name where u.name = %s", user);
+context.reportgrades = frappe.db.sql(f" select g.course_name, g.url from tabreportgrade as g join tabUser
+as u on g.firstname=u.first_name where u.name = %s", user);
 
 ```
 
